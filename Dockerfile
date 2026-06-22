@@ -1,4 +1,4 @@
-FROM tangramor/nginx-php8-fpm:php8.3.13_node22.11.0
+FROM tangramor/nginx-php8-fpm:php8.4.1_node23.3.0
 RUN cp /usr/local/bin/php /usr/local/bin/php.tmp && mv -f /usr/local/bin/php.tmp /usr/local/bin/php && chmod +x /usr/local/bin/php
 
 COPY . .
