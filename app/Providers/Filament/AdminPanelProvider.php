@@ -26,8 +26,8 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-             ->brandLogo(asset('images/dti_logo.png'))
-             ->brandLogoHeight('10rem') // 👈 optional, controls logo size
+            ->brandLogo(asset('images/dti_logo.png'))
+            ->brandLogoHeight('10rem')
             ->login()
             ->colors([
                 'primary' => Color::Amber,
