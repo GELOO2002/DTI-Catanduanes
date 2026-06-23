@@ -3,7 +3,6 @@ RUN cp /usr/local/bin/php /usr/local/bin/php.tmp && mv -f /usr/local/bin/php.tmp
 
 COPY . .
 COPY conf/nginx/nginx-site.conf /etc/nginx/conf.d/default.conf
-COPY conf/php-fpm.conf /etc/php-fpm.d/www.conf
 
 RUN chmod +x scripts/*.sh
 RUN chmod -R 777 storage bootstrap/cache
