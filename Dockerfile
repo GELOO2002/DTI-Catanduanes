@@ -5,7 +5,9 @@ COPY . .
 RUN chmod +x scripts/*.sh
 RUN chmod -R 777 storage bootstrap/cache
 
-ENV SKIP_COMPOSER 1
+# Install composer dependencies FIRST
+RUN composer install --no-dev --no-interaction --prefer-dist
+
 ENV WEBROOT /var/www/html/public
 ENV PHP_ERRORS_STDERR 1
 ENV RUN_SCRIPTS 1
