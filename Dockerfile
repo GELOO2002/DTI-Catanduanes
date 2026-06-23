@@ -3,6 +3,7 @@ RUN cp /usr/local/bin/php /usr/local/bin/php.tmp && mv -f /usr/local/bin/php.tmp
 
 COPY . .
 RUN chmod +x scripts/*.sh
+RUN chmod -R 777 storage bootstrap/cache
 
 ENV SKIP_COMPOSER 1
 ENV WEBROOT /var/www/html/public
