@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Seeder;
 
 class AdminUserSeeder extends Seeder
 {
@@ -14,7 +13,9 @@ class AdminUserSeeder extends Seeder
             ['email' => 'admin@dti.com'],
             [
                 'name' => 'Admin',
-                'password' => Hash::make('password123'),
+                'password' => bcrypt('password123'),
+                'is_admin' => true,
+                'email_verified_at' => now(),
             ]
         );
     }
