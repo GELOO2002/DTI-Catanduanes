@@ -25,11 +25,11 @@ class ProductResource extends Resource
                 // ── SECTION 1: Basic Info ──────────────────────────────────
                 Forms\Components\Section::make('Basic Information')
                     ->schema([
-                        Forms\Components\Select::make('business_id')
+                       Forms\Components\Select::make('business_id')
                             ->relationship('business', 'name')
                             ->required()
                             ->searchable()
-                            ->preload()
+                            ->optionsLimit(50)
                             ->label('Business Owner'),
 
                         Forms\Components\TextInput::make('name')
