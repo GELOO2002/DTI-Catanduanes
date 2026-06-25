@@ -10,7 +10,7 @@ class DashboardController extends Controller
     public function index()
     {
         // 1. Fetch your data
-        $products = Product::all();
+        $products = Product::with('business')->get();
 
         // 2. The loop processes image strings dynamically
         foreach ($products as $product) {
