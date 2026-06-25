@@ -164,18 +164,14 @@
                             </div>
                         @endif
 
-                        {{-- Product Name Overlay --}}
-                        <div id="title-{{ $product->id }}" 
-                             class="absolute top-2 left-2 bg-black/50 text-white text-xs font-bold uppercase px-2 py-1 rounded">
-                            {{ $product->name }}
-                        </div>
+                       
 
                     </div>
                     {{-- END CAROUSEL --}}
 
                     {{-- PRODUCT INFO --}}
                     <div class="p-6 flex-1">
-                        <h3 class="text-lg font-bold text-gray-900 leading-snug">
+                        <h3 id="product-title-{{ $product->id }}" class="text-lg font-bold text-gray-900 leading-snug">
                             {{ $product->name }}
                         </h3>
                         <p class="text-sm font-semibold text-red-600 mt-1">{{ $product->business->name ?? 'No Business' }}</p>
@@ -262,13 +258,13 @@
         function updateDots(productId, totalImages) {
     const carousel = document.getElementById('carousel-' + productId);
     const dots = document.getElementById('dots-' + productId);
-    const titleEl = document.getElementById('title-' + productId);
+    const titleHeading = document.getElementById('product-title-' + productId);
     
     if (!carousel || !dots) return;
     
     const activeIndex = Math.round(carousel.scrollLeft / carousel.clientWidth);
     const titles = @json(array_merge([$product->name], array_column($galleryItems, 'name')));
-    // Update dots
+    
     dots.querySelectorAll('.carousel-dot').forEach((dot, i) => {
         if (i === activeIndex) {
             dot.classList.remove('bg-white/70', 'border', 'border-gray-300');
@@ -279,9 +275,9 @@
         }
     });
     
-    // Update title
-    if (titleEl && titles[activeIndex]) {
-        titleEl.innerText = titles[activeIndex].toUpperCase();
+    // Update the heading below the carousel
+    if (titleHeading && titles[activeIndex]) {
+        titleHeading.innerText = titles[activeIndex].toUpperCase();
     }
 }
     </script>
