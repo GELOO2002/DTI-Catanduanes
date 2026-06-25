@@ -16,15 +16,4 @@ class EditProduct extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
-
-    protected function mutateFormDataBeforeSave(array $data): array
-{
-    $slides = $data['gallery'] ?? [];
-
-    $data['gallery_names']        = array_values(array_column($slides, 'name'));
-    $data['gallery_descriptions'] = array_values(array_column($slides, 'description'));
-    $data['gallery']              = array_values(array_column($slides, 'image'));
-
-    return $data;
-}
 }
