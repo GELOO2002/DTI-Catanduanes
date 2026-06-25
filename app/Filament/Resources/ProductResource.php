@@ -3,45 +3,62 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
-        ->schema([
-            Forms\Components\Select::make('business_id')
-                ->relationship('business', 'name')
-                ->required(),
-            Forms\Components\TextInput::make('name')
-                ->required(),
-            Forms\Components\Textarea::make('description')
-                ->columnSpanFull(),
-            Forms\Components\Textarea::make('gallery')
-                ->placeholder('Enter as JSON: ["images/cocoashtray.png", "images/lamp2.png"]')
-                ->columnSpanFull()
-                ->rows(4),
-            Forms\Components\Textarea::make('gallery_names')
-                ->placeholder('Enter as JSON: ["Name 1", "Name 2", "Name 3"]')
-                ->columnSpanFull()
-                ->rows(4),
-            Forms\Components\Textarea::make('gallery_descriptions')
-                ->placeholder('Enter as JSON: ["Desc 1", "Desc 2", "Desc 3"]')
-                ->columnSpanFull()
-                ->rows(4),
+            ->schema([
+                Forms\Components\Section::make('Product Details')
+                    ->schema([
+                        Forms\Components\Select::make('business_id')
+                            ->relationship('business', 'name')
+                            ->required()
+                            ->label('Business'),
+                        
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->label('Product Name'),
+                        
+                        Forms\Components\Textarea::make('description')
+                            ->columnSpanFull()
+                            ->rows(3),
+                    ]),
+
+                Forms\Components\Section::make('Gallery')
+                    ->schema([
+                        Forms\Components\Textarea::make('gallery')
+                            ->label('Image Paths (JSON)')
+                            ->placeholder('["images/cocoashtray.png", "images/lamp2.png"]')
+                            ->helperText('Paste image paths as a JSON array')
+                            ->columnSpanFull()
+                            ->rows(4)
+                            ->required(),
+                        
+                        Forms\Components\Textarea::make('gallery_names')
+                            ->label('Image Names (JSON)')
+                            ->placeholder('["Coconut Ashtray", "Lamp 2"]')
+                            ->helperText('Must match the number of images above')
+                            ->columnSpanFull()
+                            ->rows(4),
+                        
+                        Forms\Components\Textarea::make('gallery_descriptions')
+                            ->label('Image Descriptions (JSON)')
+                            ->placeholder('["Handmade coconut shell", "Wooden lamp"]')
+                            ->helperText('Must match the number of images above')
+                            ->columnSpanFull()
+                            ->rows(4),
+                    ]),
             ]);
     }
 
@@ -49,24 +66,16 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('business.name')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\TextColumn::make('business.name')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -79,9 +88,7 @@ class ProductResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
