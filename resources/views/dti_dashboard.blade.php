@@ -191,16 +191,16 @@
                     {{-- CARD FOOTER --}}
                     <div class="px-6 pb-6 pt-4 border-t border-gray-100 bg-gray-50/50">
 
-                        @if($product->business->fb_page ?? null)
+                       
                             <button type="button"
-                                    onclick="event.stopPropagation(); event.preventDefault(); window.open('{{ $product->business->fb_page }}', '_blank'); return false;"
+                                    onclick="event.stopPropagation(); event.preventDefault(); window.open('{{ $product->business->fb_page ?? '#' }}', '_blank'); return false;"
                                     class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-colors shadow-sm mb-4 cursor-pointer">
                                 <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z"/>
                                 </svg>
                                 Connect to FB
                             </button>
-                        @endif
+                      
 
                         <button type="button"
                                 onclick="toggleHistoryDrawer(event)"
