@@ -115,14 +115,21 @@
             $allImages = ['https://picsum.photos/id/20/400/300'];
         }
         
-        // Get titles (for dynamic carousel titles)
-        $imageTitles = ['Coconut shell Handicrafts']; // Main image title
-        if (!empty($product->gallery_names) && is_array($product->gallery_names)) {
-            $imageTitles = array_merge($imageTitles, $product->gallery_names);
-        }
+        // Prepare dynamic titles and descriptions from database
+        $baseName = $product->name ?? 'Unnamed Product';
+        $baseDesc = $product->description ?? '';
+        
+        $galleryNames = is_array($product->gallery_names) ? $product->gallery_names : (json_decode($product->gallery_names, true) ?? []);
+        $galleryDescs = is_array($product->gallery_descriptions) ? $product->gallery_descriptions : (json_decode($product->gallery_descriptions, true) ?? []);
+        
+        $namesArray = array_merge([$baseName], $galleryNames);
+        $descsArray = array_merge([$baseDesc], $galleryDescs);
     } catch (\Exception $e) {
         $allImages = ['https://picsum.photos/id/20/400/300'];
-        $imageTitles = ['Coconut shell Handicrafts'];
+        $baseName = 'Product';
+        $baseDesc = '';
+        $namesArray = [$baseName];
+        $descsArray = [$baseDesc];
     }
 @endphp
 
@@ -145,13 +152,13 @@
                         {{-- Carousel Container --}}
                         <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar h-48"
                              id="carousel-{{ $product->id }}"
-                             onscroll="updateDots({{ $product->id }}, {{ count($allImages) }})">
+                             onscroll="updateDots({{ $product->id }})">
                             
                             @foreach($allImages as $index => $imageUrl)
                                 <div class="snap-center flex-shrink-0 w-full flex items-center justify-center bg-gray-100 carousel-item"
                                      data-index="{{ $index }}">
                                     <img src="{{ $imageUrl }}" 
-                                         alt="{{ $product->name }} photo {{ $index + 1 }}" 
+                                         alt="{{ $baseName }} photo {{ $index + 1 }}" 
                                          class="h-full w-full object-contain drop-shadow-md"
                                          onerror="this.src='https://picsum.photos/id/20/400/300'">
                                 </div>
@@ -171,36 +178,34 @@
                             </div>
                         @endif
 
-                        {{-- Product Name Overlay --}}
-                        <div id="title-{{ $product->id }}" 
-                             class="absolute top-2 left-2 bg-black/50 text-white text-xs font-bold uppercase px-2 py-1 rounded">
-                            {{ $product->name }}
-                        </div>
-
                     </div>
                     {{-- END CAROUSEL --}}
 
                     {{-- PRODUCT INFO --}}
                     <div class="p-6 flex-1">
-                        <h3 class="text-lg font-bold text-gray-900 leading-snug">
-                            {{ $product->name }}
+                        <h3 id="title-{{ $product->id }}"
+                            data-names='@json($namesArray)'
+                            data-descriptions='@json($descsArray)'
+                            class="text-lg font-bold text-gray-900 leading-snug">
+                            {{ $baseName }}
                         </h3>
                         <p class="text-sm font-semibold text-red-600 mt-1">{{ $product->business->name ?? 'No Business' }}</p>
+                        <p id="desc-{{ $product->id }}" class="text-gray-600 text-xs mt-3 line-clamp-3 leading-relaxed">
+                            {{ $baseDesc }}
+                        </p>
                     </div>
 
                     {{-- CARD FOOTER --}}
                     <div class="px-6 pb-6 pt-4 border-t border-gray-100 bg-gray-50/50">
 
-                       
-                            <button type="button"
-                                    onclick="event.stopPropagation(); event.preventDefault(); window.open('{{ $product->business->fb_page ?? '#' }}', '_blank'); return false;"
-                                    class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-colors shadow-sm mb-4 cursor-pointer">
-                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z"/>
-                                </svg>
-                                Show Facebook Page
-                            </button>
-                      
+                        <button type="button"
+                                onclick="event.stopPropagation(); event.preventDefault(); window.open('{{ $product->business->fb_page ?? '#' }}', '_blank'); return false;"
+                                class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-colors shadow-sm mb-4 cursor-pointer">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z"/>
+                            </svg>
+                            Show Facebook Page
+                        </button>
 
                         <button type="button"
                                 onclick="toggleHistoryDrawer(event)"
@@ -268,32 +273,54 @@
             scrollToImage(productId, Math.min(items.length - 1, current + 1));
         }
 
-        function updateDots(productId, totalImages) {
-    const carousel = document.getElementById('carousel-' + productId);
-    const dots = document.getElementById('dots-' + productId);
-    const titleEl = document.getElementById('title-' + productId);
-    
-    if (!carousel || !dots) return;
-    
-    const activeIndex = Math.round(carousel.scrollLeft / carousel.clientWidth);
-    const titles = ['Coconut shell Handicrafts', 'Ashtray', 'Pineapple Lamp', 'Tree Lamp'];
-    
-    // Update dots
-    dots.querySelectorAll('.carousel-dot').forEach((dot, i) => {
-        if (i === activeIndex) {
-            dot.classList.remove('bg-white/70', 'border', 'border-gray-300');
-            dot.classList.add('bg-gray-700');
-        } else {
-            dot.classList.remove('bg-gray-700');
-            dot.classList.add('bg-white/70', 'border', 'border-gray-300');
+        function updateDots(productId) {
+            const carousel = document.getElementById('carousel-' + productId);
+            const dotsContainer = document.getElementById('dots-' + productId);
+            const titleElement = document.getElementById('title-' + productId);
+            const descElement = document.getElementById('desc-' + productId);
+            
+            if (!carousel) return;
+
+            const scrollLeft = carousel.scrollLeft;
+            const itemWidth = carousel.offsetWidth || carousel.clientWidth;
+            if (!itemWidth) return;
+
+            const activeIndex = Math.round(scrollLeft / itemWidth);
+
+            // 1. Update swipe indicator dots
+            if (dotsContainer) {
+                const buttons = dotsContainer.getElementsByTagName('button');
+                for (let i = 0; i < buttons.length; i++) {
+                    if (i === activeIndex) {
+                        buttons[i].classList.remove('bg-white/70', 'border', 'border-gray-300');
+                        buttons[i].classList.add('bg-gray-700');
+                    } else {
+                        buttons[i].classList.remove('bg-gray-700');
+                        buttons[i].classList.add('bg-white/70', 'border', 'border-gray-300');
+                    }
+                }
+            }
+
+            // 2. Synchronize Title from database
+            if (titleElement) {
+                try {
+                    const names = JSON.parse(titleElement.getAttribute('data-names'));
+                    if (names && names[activeIndex] !== undefined) {
+                        titleElement.innerText = names[activeIndex];
+                    }
+                } catch(e) { console.error("Error parsing names JSON:", e); }
+            }
+
+            // 3. Synchronize Description from database
+            if (descElement && titleElement) {
+                try {
+                    const descs = JSON.parse(titleElement.getAttribute('data-descriptions'));
+                    if (descs && descs[activeIndex] !== undefined) {
+                        descElement.innerText = descs[activeIndex];
+                    }
+                } catch(e) { console.error("Error parsing descriptions JSON:", e); }
+            }
         }
-    });
-    
-    // Update title
-    if (titleEl && titles[activeIndex]) {
-        titleEl.innerText = titles[activeIndex].toUpperCase();
-    }
-}
     </script>
 
 </body>
