@@ -167,7 +167,7 @@
 
                         {{-- Dot Indicators --}}
                         @if(count($allImages) > 1)
-                            <div id="dots-{{ $product->id }}" class="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5 z-5">
+                            <div id="dots-{{ $product->id }}" class="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5 z-10">
                                 @foreach($allImages as $index => $imageUrl)
                                     <button type="button"
                                             onclick="scrollToImage({{ $product->id }}, {{ $index }})"
