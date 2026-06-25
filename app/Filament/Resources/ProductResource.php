@@ -34,8 +34,9 @@ class ProductResource extends Resource
                     ->image()
                     ->multiple()
                     ->reorderable()
-                    ->directory('product-images')
-                     ->columnSpanFull(),
+                     ->disk('public')
+                    ->directory('products')
+                    ->columnSpanFull(),
 
                Forms\Components\Textarea::make('gallery_names')
                      ->placeholder('Enter as JSON: ["Name 1", "Name 2", "Name 3"]')
