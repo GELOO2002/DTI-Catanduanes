@@ -267,8 +267,7 @@
     if (!carousel || !dots) return;
     
     const activeIndex = Math.round(carousel.scrollLeft / carousel.clientWidth);
-    const titles = ['Coconut shell Handicrafts', 'Ashtray', 'Pineapple Lamp', 'Tree Lamp'];
-    
+    const titles = @json(array_merge([$product->name], array_column($galleryItems, 'name')));
     // Update dots
     dots.querySelectorAll('.carousel-dot').forEach((dot, i) => {
         if (i === activeIndex) {
