@@ -13,6 +13,7 @@ class Product extends Model
     'name',
     'description',
     'image',
+    'gallery_items',
     'gallery',
     'gallery_names',
     'gallery_descriptions',
