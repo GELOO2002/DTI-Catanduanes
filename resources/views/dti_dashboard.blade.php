@@ -98,9 +98,10 @@
         $mainImage = [asset(trim($product->image))];
 
         // Parse gallery images
-        $galleryImages = [];
-        if (!empty($product->gallery) && is_array($product->gallery)) {
-            foreach ($product->gallery as $imagePath) {
+       $galleryImages = [];
+                     $gallery = is_array($product->gallery) ? $product->gallery : json_decode($product->gallery, true);
+                 if (!empty($gallery)) {
+    foreach ($gallery as $imagePath) {
                 if (!empty($imagePath)) {
                     $galleryImages[] = asset($imagePath);
                 }
