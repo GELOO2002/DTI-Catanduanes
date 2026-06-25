@@ -37,13 +37,15 @@ class ProductResource extends Resource
                     ->directory('product-images')
                      ->columnSpanFull(),
 
-                Forms\Components\TagsInput::make('gallery_names')
-                    ->placeholder('Type a name, press Enter')
-                    ->columnSpanFull(),
+               Forms\Components\Textarea::make('gallery_names')
+                     ->placeholder('Enter as JSON: ["Name 1", "Name 2", "Name 3"]')
+                     ->columnSpanFull()
+                     ->rows(4),
 
-                Forms\Components\TagsInput::make('gallery_descriptions')
-                    ->placeholder('Type a description, press Enter')
-                    ->columnSpanFull(),
+                Forms\Components\Textarea::make('gallery_descriptions')
+                     ->placeholder('Enter as JSON: ["Desc 1", "Desc 2", "Desc 3"]')
+                     ->columnSpanFull()
+                     ->rows(4),
             ]);
     }
 
