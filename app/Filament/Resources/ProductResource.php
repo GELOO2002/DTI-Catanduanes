@@ -17,47 +17,46 @@ class ProductResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\Section::make('Product Details')
-                    ->schema([
-                        Forms\Components\Select::make('business_id')
-                            ->relationship('business', 'name')
-                            ->required()
-                            ->label('Business'),
-                        
-                        Forms\Components\TextInput::make('name')
-                            ->required()
-                            ->label('Product Name'),
-                        
-                        Forms\Components\Textarea::make('description')
-                            ->columnSpanFull()
-                            ->rows(3),
-                    ]),
+       
+    return $form
+        ->schema([
+            Forms\Components\Section::make('Product Details')
+                ->schema([
+                    Forms\Components\Select::make('business_id')
+                        ->relationship('business', 'name')
+                        ->required()
+                        ->label('Business'),
+                    
+                    Forms\Components\TextInput::make('name')
+                        ->required()
+                        ->label('Product Name'),
+                    
+                    Forms\Components\Textarea::make('description')
+                        ->columnSpanFull()
+                        ->rows(3),
+                ]),
 
-                Forms\Components\Section::make('Gallery')
-                    ->schema([
-                        Forms\Components\Textarea::make('gallery')
-                            ->label('Image Paths (JSON)')
-                            ->placeholder('["images/cocoashtray.png", "images/lamp2.png"]')
-                            ->helperText('Paste image paths as a JSON array')
-                            ->columnSpanFull()
-                            ->rows(4)
-                            ->required(),
-                        
-                        Forms\Components\Textarea::make('gallery_names')
-                            ->label('Image Names (JSON)')
-                            ->placeholder('["Coconut Ashtray", "Lamp 2"]')
-                            ->helperText('Must match the number of images above')
-                            ->columnSpanFull()
-                            ->rows(4),
-                        
-                        Forms\Components\Textarea::make('gallery_descriptions')
-                            ->label('Image Descriptions (JSON)')
-                            ->placeholder('["Handmade coconut shell", "Wooden lamp"]')
-                            ->helperText('Must match the number of images above')
-                            ->columnSpanFull()
-                            ->rows(4),
+            Forms\Components\Section::make('Gallery Items')
+                ->schema([
+                    Forms\Components\Repeater::make('gallery_items')
+                        ->label('')
+                        ->schema([
+                            Forms\Components\TextInput::make('image_path')
+                                ->label('Image Path')
+                                ->placeholder('images/cocoashtray.png')
+                                ->required(),
+                            
+                            Forms\Components\TextInput::make('name')
+                                ->label('Image Name')
+                                ->placeholder('Coconut Ashtray'),
+                            
+                            Forms\Components\Textarea::make('description')
+                                ->label('Description')
+                                ->placeholder('Handmade coconut shell')
+                                ->rows(2),
+                        ])
+                        ->columnSpanFull()
+                        ->addActionLabel('Add Gallery Item'),
                     ]),
             ]);
     }

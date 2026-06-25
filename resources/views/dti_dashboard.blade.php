@@ -92,38 +92,30 @@
                     {{-- CAROUSEL --}}
                     <div class="relative bg-gray-50 border-b border-gray-100">
 
-              @php
+             @php
     try {
-        // Get main image (trim whitespace)
-        $mainImage = [asset(trim($product->image))];
-
-        // Parse gallery images
-       $galleryImages = [];
-                     $gallery = is_array($product->gallery) ? $product->gallery : json_decode($product->gallery, true);
-                 if (!empty($gallery)) {
-    foreach ($gallery as $imagePath) {
-                if (!empty($imagePath)) {
-                    $galleryImages[] = asset($imagePath);
-                }
+        $galleryItems = is_array($product->gallery_items) ? $product->gallery_items : json_decode($product->gallery_items, true) ?? [];
+        $allImages = [asset(trim($product->image))];
+        
+        foreach ($galleryItems as $item) {
+            if (!empty($item['image_path'])) {
+                $allImages[] = asset($item['image_path']);
             }
         }
-
-        // Combine all images
-        $allImages = array_merge($mainImage, $galleryImages);
-
-        // Fallback if no images
-        if (empty($allImages)) {
+        
+        if (empty($allImages) || count($allImages) == 1) {
             $allImages = ['https://picsum.photos/id/20/400/300'];
         }
         
-        // Get titles (for dynamic carousel titles)
-        $imageTitles = ['Coconut shell Handicrafts']; // Main image title
-        if (!empty($product->gallery_names) && is_array($product->gallery_names)) {
-            $imageTitles = array_merge($imageTitles, $product->gallery_names);
+        $imageTitles = [$product->name];
+        foreach ($galleryItems as $item) {
+            if (!empty($item['name'])) {
+                $imageTitles[] = $item['name'];
+            }
         }
     } catch (\Exception $e) {
         $allImages = ['https://picsum.photos/id/20/400/300'];
-        $imageTitles = ['Coconut shell Handicrafts'];
+        $imageTitles = [$product->name];
     }
 @endphp
 
