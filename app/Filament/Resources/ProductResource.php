@@ -22,31 +22,26 @@ class ProductResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\Select::make('business_id')
-                    ->relationship('business', 'name')
-                    ->required(),
-                Forms\Components\TextInput::make('name')
-                    ->required(),
-                Forms\Components\Textarea::make('description')
-                    ->columnSpanFull(),
-                Forms\Components\FileUpload::make('gallery')
-                    ->image()
-                    ->multiple()
-                    ->reorderable()
-                     ->disk('public')
-                    ->directory('products')
-                    ->columnSpanFull(),
-
-               Forms\Components\Textarea::make('gallery_names')
-                     ->placeholder('Enter as JSON: ["Name 1", "Name 2", "Name 3"]')
-                     ->columnSpanFull()
-                     ->rows(4),
-
-                Forms\Components\Textarea::make('gallery_descriptions')
-                     ->placeholder('Enter as JSON: ["Desc 1", "Desc 2", "Desc 3"]')
-                     ->columnSpanFull()
-                     ->rows(4),
+        ->schema([
+            Forms\Components\Select::make('business_id')
+                ->relationship('business', 'name')
+                ->required(),
+            Forms\Components\TextInput::make('name')
+                ->required(),
+            Forms\Components\Textarea::make('description')
+                ->columnSpanFull(),
+            Forms\Components\Textarea::make('gallery')
+                ->placeholder('Enter as JSON: ["images/cocoashtray.png", "images/lamp2.png"]')
+                ->columnSpanFull()
+                ->rows(4),
+            Forms\Components\Textarea::make('gallery_names')
+                ->placeholder('Enter as JSON: ["Name 1", "Name 2", "Name 3"]')
+                ->columnSpanFull()
+                ->rows(4),
+            Forms\Components\Textarea::make('gallery_descriptions')
+                ->placeholder('Enter as JSON: ["Desc 1", "Desc 2", "Desc 3"]')
+                ->columnSpanFull()
+                ->rows(4),
             ]);
     }
 
