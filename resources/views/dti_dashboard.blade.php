@@ -8,8 +8,8 @@
 </head>
 <body class="bg-gray-100 font-sans antialiased">
 
-   <nav class="bg-[#6F4518] text-white shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+   <nav class="bg-[#8B5A2B] text-white shadow-md">
+    <div class="flex justify-between items-center px-6 py-4 bg-[#8B5A2B] text-white">
         <div class="flex items-center gap-3">
             <img src="{{ asset('images/dti_bagongpinas.png') }}" alt="DTI Logo" class="h-16 w-auto">
             <h1 class="text-2xl font-bold tracking-wide">DTI Catanduanes</h1>
