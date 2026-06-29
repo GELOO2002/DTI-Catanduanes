@@ -81,8 +81,8 @@
             <p class="mt-2 text-sm text-gray-600">Registered local products by different business owners and event history.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @foreach($products as $product)
+       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
+    @foreach($products as $product)
 
                 <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col border border-gray-200">
 
