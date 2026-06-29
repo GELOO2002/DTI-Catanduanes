@@ -14,7 +14,6 @@
         <div class="flex items-center gap-4">
             <span class="bg-white/10 text-xs uppercase px-3 py-1 rounded-full font-semibold tracking-widest">Live Monitoring Panel</span>
 
-            {{-- 👇 HAMBURGER BUTTON STARTS HERE 👇 --}}
             <button type="button"
                     onclick="document.getElementById('dti-sidebar').classList.remove('-translate-x-full');
                              document.getElementById('dti-sidebar-overlay').classList.remove('hidden');"
@@ -23,19 +22,17 @@
                 <span class="block w-6 h-0.5 bg-white"></span>
                 <span class="block w-6 h-0.5 bg-white"></span>
             </button>
-            {{-- 👆 HAMBURGER BUTTON ENDS HERE 👆 --}}
 
         </div>
     </div>
 </nav>
-          {{-- Sidebar Overlay --}}
+
 <div id="dti-sidebar-overlay"
      onclick="document.getElementById('dti-sidebar').classList.add('-translate-x-full');
               this.classList.add('hidden');"
      class="hidden fixed inset-0 bg-black/50 z-40">
 </div>
 
-          {{-- Sidebar Panel --}}
 <aside id="dti-sidebar"
        class="fixed top-0 left-0 h-full w-72 bg-white shadow-xl z-50 transform -translate-x-full transition-transform duration-300 ease-in-out">
 
@@ -96,17 +93,17 @@
     try {
         $galleryItems = is_array($product->gallery_items) ? $product->gallery_items : json_decode($product->gallery_items, true) ?? [];
         $allImages = [asset(trim($product->image))];
-        
+
         foreach ($galleryItems as $item) {
             if (!empty($item['image_path'])) {
                 $allImages[] = asset($item['image_path']);
             }
         }
-        
+
         if (empty($allImages) || count($allImages) == 1) {
             $allImages = ['https://picsum.photos/id/20/400/300'];
         }
-        
+
         $imageTitles = [$product->name];
         foreach ($galleryItems as $item) {
             if (!empty($item['name'])) {
@@ -135,16 +132,21 @@
                             </button>
                         @endif
 
-                        {{-- Carousel Container --}}
+                        {{--
+                            FIX: data-titles carries THIS product's own titles array.
+                            Computed inline here, so it can never leak another product's
+                            data the way the old script-tag version did.
+                        --}}
                         <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar h-48"
                              id="carousel-{{ $product->id }}"
+                             data-titles='@json($imageTitles)'
                              onscroll="updateDots({{ $product->id }}, {{ count($allImages) }})">
-                            
+
                             @foreach($allImages as $index => $imageUrl)
                                 <div class="snap-center flex-shrink-0 w-full flex items-center justify-center bg-gray-100 carousel-item"
                                      data-index="{{ $index }}">
-                                    <img src="{{ $imageUrl }}" 
-                                         alt="{{ $product->name }} photo {{ $index + 1 }}" 
+                                    <img src="{{ $imageUrl }}"
+                                         alt="{{ $product->name }} photo {{ $index + 1 }}"
                                          class="h-full w-full object-contain drop-shadow-md"
                                          onerror="this.src='https://picsum.photos/id/20/400/300'">
                                 </div>
@@ -163,8 +165,6 @@
                                 @endforeach
                             </div>
                         @endif
-
-                       
 
                     </div>
                     {{-- END CAROUSEL --}}
@@ -233,9 +233,9 @@
         function scrollToImage(productId, index) {
             const carousel = document.getElementById('carousel-' + productId);
             if (carousel) {
-                carousel.scrollTo({ 
-                    left: carousel.clientWidth * index, 
-                    behavior: 'smooth' 
+                carousel.scrollTo({
+                    left: carousel.clientWidth * index,
+                    behavior: 'smooth'
                 });
             }
         }
@@ -255,31 +255,38 @@
             scrollToImage(productId, Math.min(items.length - 1, current + 1));
         }
 
+        // FIX: titles now come from THIS carousel's own data-titles attribute,
+        // never from a stale PHP loop variable shared across all products.
         function updateDots(productId, totalImages) {
-    const carousel = document.getElementById('carousel-' + productId);
-    const dots = document.getElementById('dots-' + productId);
-    const titleHeading = document.getElementById('product-title-' + productId);
-    
-    if (!carousel || !dots) return;
-    
-    const activeIndex = Math.round(carousel.scrollLeft / carousel.clientWidth);
-    const titles = @json(array_merge([$product->name], array_column($galleryItems, 'name')));
-    
-    dots.querySelectorAll('.carousel-dot').forEach((dot, i) => {
-        if (i === activeIndex) {
-            dot.classList.remove('bg-white/70', 'border', 'border-gray-300');
-            dot.classList.add('bg-gray-700');
-        } else {
-            dot.classList.remove('bg-gray-700');
-            dot.classList.add('bg-white/70', 'border', 'border-gray-300');
+            const carousel = document.getElementById('carousel-' + productId);
+            const dots = document.getElementById('dots-' + productId);
+            const titleHeading = document.getElementById('product-title-' + productId);
+
+            if (!carousel || !dots) return;
+
+            const activeIndex = Math.round(carousel.scrollLeft / carousel.clientWidth);
+
+            let titles = [];
+            try {
+                titles = JSON.parse(carousel.dataset.titles || '[]');
+            } catch (e) {
+                titles = [];
+            }
+
+            dots.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+                if (i === activeIndex) {
+                    dot.classList.remove('bg-white/70', 'border', 'border-gray-300');
+                    dot.classList.add('bg-gray-700');
+                } else {
+                    dot.classList.remove('bg-gray-700');
+                    dot.classList.add('bg-white/70', 'border', 'border-gray-300');
+                }
+            });
+
+            if (titleHeading && titles[activeIndex]) {
+                titleHeading.innerText = titles[activeIndex].toUpperCase();
+            }
         }
-    });
-    
-    // Update the heading below the carousel
-    if (titleHeading && titles[activeIndex]) {
-        titleHeading.innerText = titles[activeIndex].toUpperCase();
-    }
-}
     </script>
 
 </body>
