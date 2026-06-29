@@ -15,7 +15,7 @@
             <h1 class="text-2xl font-bold tracking-wide">DTI Catanduanes</h1>
         </div>
         <div class="flex items-center gap-4">
-            <span class="bg-white/10 text-xs uppercase px-3 py-1 rounded-full font-semibold tracking-widest">Live Monitoring Panel</span>
+            <span class="bg-white/10 text-xs uppercase px-3 py-1 rounded-full font-semibold tracking-widest"></span>
 
             <button type="button"
                     onclick="document.getElementById('dti-sidebar').classList.remove('-translate-x-full');
