@@ -39,7 +39,7 @@
 <aside id="dti-sidebar"
        class="fixed top-0 left-0 h-full w-72 bg-white shadow-xl z-50 transform -translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto">
 
-    <div class="flex justify-between items-center px-6 py-4 bg-[#0e2889] text-white">
+     <div class="flex justify-between items-center px-6 py-4 bg-[#8B5A2B] text-white">
         <h2 class="font-bold text-lg">DTI Services</h2>
         <button type="button"
                 onclick="document.getElementById('dti-sidebar').classList.add('-translate-x-full');
