@@ -62,11 +62,54 @@
                 BDD <span class="text-xs text-gray-400 font-normal">(Business Development Division)</span>
             </a>
         </li>
-        <li>
-            <a href="#" class="block px-6 py-3 text-gray-700 hover:bg-gray-100 font-semibold">
-                Negosyo Center
-            </a>
+       <li>
+    <button type="button" onclick="toggleNegosyoList()"
+            class="w-full flex items-center justify-between px-6 py-3 text-gray-700 hover:bg-gray-100 font-semibold text-left bg-transparent border-none cursor-pointer">
+        <span>Negosyo Center</span>
+        <svg id="negosyo-chevron" class="w-4 h-4 transform transition-transform duration-200 text-gray-400"
+             fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+        </svg>
+    </button>
+
+    <ul id="negosyo-list" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
+        <li class="px-6 py-2 border-t border-gray-100">
+            <p class="font-semibold text-sm text-gray-800">Virac</p>
+            <p class="text-xs text-gray-500">DTI Provincial Office, Virac, Catanduanes <em>(http://facebook.com/DTICatanduanesofficial/)</em></p>
+            <p class="text-xs text-gray-400">0917 501 7332</p>
         </li>
+        <li class="px-6 py-2 border-t border-gray-100">
+            <p class="font-semibold text-sm text-gray-800">Bato</p>
+            <p class="text-xs text-gray-500">Libod Poblacion, Bato, Catanduanes <em>(batocatanduanes.gov.ph)</em></p>
+            <p class="text-xs text-gray-400">0928 570 5275</p>
+        </li>
+        <li class="px-6 py-2 border-t border-gray-100">
+            <p class="font-semibold text-sm text-gray-800">Baras</p>
+            <p class="text-xs text-gray-500">Municipal Hall, Baras, Catanduanes <em>(https://www.facebook.com/NC.lgubaras/)</em></p>
+            <p class="text-xs text-gray-400">0938 794 8569</p>
+        </li>
+        <li class="px-6 py-2 border-t border-gray-100">
+            <p class="font-semibold text-sm text-gray-800">San Andres</p>
+            <p class="text-xs text-gray-500">Municipal Hall, San Andres, Catanduanes <em>(https://www.facebook.com/p/Negosyo-Center-San-Andres-100067604418969/)</em></p>
+            <p class="text-xs text-gray-400">0929-961-1026 / 0928-369-0164</p>
+        </li>
+        <li class="px-6 py-2 border-t border-gray-100">
+            <p class="font-semibold text-sm text-gray-800">Pandan</p>
+            <p class="text-xs text-gray-500">Municipal Hall, Pandan, Catanduanes <em>(https://www.facebook.com/NegosyoCenterPandan/?locale=fy_NL)</em></p>
+            <p class="text-xs text-gray-400">0929-961-1026 / 0928-369-0164</p>
+        </li>
+        <li class="px-6 py-2 border-t border-gray-100">
+            <p class="font-semibold text-sm text-gray-800">Caramoran</p>
+            <p class="text-xs text-gray-500">Municipal Hall, Caramoran, Catanduanes <em>(https://www.facebook.com/NCCaramoran/)</em></p>
+            <p class="text-xs text-gray-400">0929-961-1026 / 0928-369-0164</p>
+        </li>
+        <li class="px-6 py-2 border-t border-gray-100 pb-3">
+            <p class="font-semibold text-sm text-gray-800">Viga</p>
+            <p class="text-xs text-gray-500">Municipal Hall, Viga, Catanduanes <em>(https://www.facebook.com/NegosyoCenterViga/)</em></p>
+            <p class="text-xs text-gray-400">0929-961-1026 / 0928-369-0164</p>
+        </li>
+    </ul>
+</li>
         <li>
             <a href="#" class="block px-6 py-3 text-gray-700 hover:bg-gray-100 font-semibold">
                 Fair Trade
@@ -229,6 +272,13 @@
             drawer.style.opacity   = isOpen ? '0'   : '1';
             arrow.classList.toggle('rotate-180', !isOpen);
         }
+        function toggleNegosyoList() {
+           const list = document.getElementById('negosyo-list');
+           const chevron = document.getElementById('negosyo-chevron');
+           const isOpen = list.style.maxHeight && list.style.maxHeight !== '0px';
+              list.style.maxHeight = isOpen ? '0px' : list.scrollHeight + 'px';
+              chevron.classList.toggle('rotate-180', !isOpen);
+     }
 
         function scrollToImage(productId, index) {
             const carousel = document.getElementById('carousel-' + productId);
