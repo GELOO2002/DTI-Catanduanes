@@ -34,7 +34,7 @@
 </div>
 
 <aside id="dti-sidebar"
-       class="fixed top-0 left-0 h-full w-72 bg-white shadow-xl z-50 transform -translate-x-full transition-transform duration-300 ease-in-out">
+       class="fixed top-0 left-0 h-full w-72 bg-white shadow-xl z-50 transform -translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto">
 
     <div class="flex justify-between items-center px-6 py-4 bg-[#0e2889] text-white">
         <h2 class="font-bold text-lg">DTI Services</h2>
@@ -73,43 +73,49 @@
     </button>
 
     <ul id="negosyo-list" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50">
-        <li class="px-6 py-2 border-t border-gray-100">
-            <p class="font-semibold text-sm text-gray-800">Virac</p>
-            <p class="text-xs text-gray-500">DTI Provincial Office, Virac, Catanduanes <em>(http://facebook.com/DTICatanduanesofficial/)</em></p>
-            <p class="text-xs text-gray-400">0917 501 7332</p>
-        </li>
-        <li class="px-6 py-2 border-t border-gray-100">
-            <p class="font-semibold text-sm text-gray-800">Bato</p>
-            <p class="text-xs text-gray-500">Libod Poblacion, Bato, Catanduanes <em>(batocatanduanes.gov.ph)</em></p>
-            <p class="text-xs text-gray-400">0928 570 5275</p>
-        </li>
-        <li class="px-6 py-2 border-t border-gray-100">
-            <p class="font-semibold text-sm text-gray-800">Baras</p>
-            <p class="text-xs text-gray-500">Municipal Hall, Baras, Catanduanes <em>(https://www.facebook.com/NC.lgubaras/)</em></p>
-            <p class="text-xs text-gray-400">0938 794 8569</p>
-        </li>
-        <li class="px-6 py-2 border-t border-gray-100">
-            <p class="font-semibold text-sm text-gray-800">San Andres</p>
-            <p class="text-xs text-gray-500">Municipal Hall, San Andres, Catanduanes <em>(https://www.facebook.com/p/Negosyo-Center-San-Andres-100067604418969/)</em></p>
-            <p class="text-xs text-gray-400">0929-961-1026 / 0928-369-0164</p>
-        </li>
-        <li class="px-6 py-2 border-t border-gray-100">
-            <p class="font-semibold text-sm text-gray-800">Pandan</p>
-            <p class="text-xs text-gray-500">Municipal Hall, Pandan, Catanduanes <em>(https://www.facebook.com/NegosyoCenterPandan/?locale=fy_NL)</em></p>
-            <p class="text-xs text-gray-400">0929-961-1026 / 0928-369-0164</p>
-        </li>
-        <li class="px-6 py-2 border-t border-gray-100">
-            <p class="font-semibold text-sm text-gray-800">Caramoran</p>
-            <p class="text-xs text-gray-500">Municipal Hall, Caramoran, Catanduanes <em>(https://www.facebook.com/NCCaramoran/)</em></p>
-            <p class="text-xs text-gray-400">0929-961-1026 / 0928-369-0164</p>
-        </li>
-        <li class="px-6 py-2 border-t border-gray-100 pb-3">
-            <p class="font-semibold text-sm text-gray-800">Viga</p>
-            <p class="text-xs text-gray-500">Municipal Hall, Viga, Catanduanes <em>(https://www.facebook.com/NegosyoCenterViga/)</em></p>
-            <p class="text-xs text-gray-400">0929-961-1026 / 0928-369-0164</p>
-        </li>
-    </ul>
-</li>
+    <li class="px-6 py-2 border-t border-gray-100">
+        <p class="font-semibold text-sm text-gray-800">Virac</p>
+        <p class="text-xs text-gray-500">DTI Provincial Office, Virac, Catanduanes
+            <a href="http://facebook.com/DTICatanduanesofficial/" target="_blank" class="text-blue-600 underline">(FB Page)</a>
+        </p>
+    </li>
+    <li class="px-6 py-2 border-t border-gray-100">
+        <p class="font-semibold text-sm text-gray-800">Bato</p>
+        <p class="text-xs text-gray-500">Libod Poblacion, Bato, Catanduanes
+            <a href="https://batocatanduanes.gov.ph" target="_blank" class="text-blue-600 underline">(Official Website)</a>
+        </p>
+    </li>
+    <li class="px-6 py-2 border-t border-gray-100">
+        <p class="font-semibold text-sm text-gray-800">Baras</p>
+        <p class="text-xs text-gray-500">Municipal Hall, Baras, Catanduanes
+            <a href="https://www.facebook.com/NC.lgubaras/" target="_blank" class="text-blue-600 underline">(FB Page)</a>
+        </p>
+    </li>
+    <li class="px-6 py-2 border-t border-gray-100">
+        <p class="font-semibold text-sm text-gray-800">San Andres</p>
+        <p class="text-xs text-gray-500">Municipal Hall, San Andres, Catanduanes
+            <a href="https://www.facebook.com/p/Negosyo-Center-San-Andres-100067604418969/" target="_blank" class="text-blue-600 underline">(FB Page)</a>
+        </p>
+    </li>
+    <li class="px-6 py-2 border-t border-gray-100">
+        <p class="font-semibold text-sm text-gray-800">Pandan</p>
+        <p class="text-xs text-gray-500">Municipal Hall, Pandan, Catanduanes
+            <a href="https://www.facebook.com/NegosyoCenterPandan/" target="_blank" class="text-blue-600 underline">(FB Page)</a>
+        </p>
+    </li>
+    <li class="px-6 py-2 border-t border-gray-100">
+        <p class="font-semibold text-sm text-gray-800">Caramoran</p>
+        <p class="text-xs text-gray-500">Municipal Hall, Caramoran, Catanduanes
+            <a href="https://www.facebook.com/NCCaramoran/" target="_blank" class="text-blue-600 underline">(FB Page)</a>
+        </p>
+    </li>
+    <li class="px-6 py-2 border-t border-gray-100 pb-3">
+        <p class="font-semibold text-sm text-gray-800">Viga</p>
+        <p class="text-xs text-gray-500">Municipal Hall, Viga, Catanduanes
+            <a href="https://www.facebook.com/NegosyoCenterViga/" target="_blank" class="text-blue-600 underline">(FB Page)</a>
+        </p>
+    </li>
+</ul>
         <li>
             <a href="#" class="block px-6 py-3 text-gray-700 hover:bg-gray-100 font-semibold">
                 Fair Trade
