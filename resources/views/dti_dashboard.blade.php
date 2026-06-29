@@ -8,9 +8,12 @@
 </head>
 <body class="bg-gray-100 font-sans antialiased">
 
-    <nav class="bg-[#0e2889] text-white shadow-md">
+   <nav class="bg-[#0e2889] text-white shadow-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-        <h1 class="text-2xl font-bold tracking-wide">DTI Catanduanes</h1>
+        <div class="flex items-center gap-3">
+            <img src="{{ asset('dti_bagongpinas.png') }}" alt="DTI Logo" class="h-10 w-auto">
+            <h1 class="text-2xl font-bold tracking-wide">DTI Catanduanes</h1>
+        </div>
         <div class="flex items-center gap-4">
             <span class="bg-white/10 text-xs uppercase px-3 py-1 rounded-full font-semibold tracking-widest">Live Monitoring Panel</span>
 
