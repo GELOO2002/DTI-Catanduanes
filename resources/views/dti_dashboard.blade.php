@@ -11,8 +11,8 @@
    <nav class="bg-[#8B5A2B] text-white shadow-md">
     <div class="flex justify-between items-center px-6 py-4 bg-[#8B5A2B] text-white">
         <div class="flex items-center gap-3">
-            <img src="{{ asset('images/dti_bagongpinas.png') }}" alt="DTI Logo" class="h-16 w-auto">
-            <h1 class="text-2xl font-bold tracking-wide">DTI Catanduanes</h1>
+          <img src="{{ asset('images/dti_bagongpinas.png') }}" alt="DTI Logo" class="h-16 w-auto">
+          <h1 class="text-2xl font-bold tracking-wide" style='font-family: "Franklin Gothic Medium", "Franklin Gothic Demi", "Franklin Gothic", "Arial Black", sans-serif;'>DTI Catanduanes</h1>
         </div>
         <div class="flex items-center gap-4">
             <span class="bg-white/10 text-xs uppercase px-3 py-1 rounded-full font-semibold tracking-widest"></span>
