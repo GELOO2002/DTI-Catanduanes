@@ -1,4 +1,4 @@
-<div id="ph-time" class="text-right font-sans text-gray-700">
+<div id="ph-time" class="text-right font-sans text-white">
     <div class="text-sm">Philippine Standard Time:</div>
     <div id="ph-time-value" class="text-base font-medium"></div>
 </div>
