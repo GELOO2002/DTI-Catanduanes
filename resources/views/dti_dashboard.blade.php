@@ -17,6 +17,7 @@
         <div class="flex items-center gap-4">
             <span class="bg-white/10 text-xs uppercase px-3 py-1 rounded-full font-semibold tracking-widest"></span>
 
+               @include('partials.ph-clock')
             <button type="button"
                     onclick="document.getElementById('dti-sidebar').classList.remove('-translate-x-full');
                              document.getElementById('dti-sidebar-overlay').classList.remove('hidden');"
